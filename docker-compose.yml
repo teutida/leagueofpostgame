@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  frontend_app:
+    build: ./frontend__app
+    volumes:
+      - ./frontend__app:/code
+    container_name: frontend_app
+    stdin_open: true
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend_app
+  
+  backend_app:
+    build: ./backend__app
+    volumes:
+      - ./backend__app:/code
+      - ./.data/backend/python/packages:/usr/local/cache_python/packages
+    container_name: backend_app
+    stdin_open: true
+    #command: uvicorn main:app --host 0.0.0.0 --port 8000
+    
+    ports:
+      - 8000:8000
